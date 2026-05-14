@@ -1,0 +1,20 @@
+package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.Trajectories.FarBlue;
+import org.firstinspires.ftc.teamcode.Trajectories.FarRed;
+
+@Autonomous
+public class RedFar extends LinearOpMode {
+    FarRed farRed;
+    public void runOpMode(){
+        farRed = new FarRed(hardwareMap);
+        waitForStart();
+        while(opModeIsActive()){
+            farRed.update();
+        }
+
+    }
+}

@@ -3,15 +3,17 @@ package org.firstinspires.ftc.teamcode.OpModes.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Trajectories.CloseRed;
+import org.firstinspires.ftc.teamcode.Trajectories.FarBlue;
+
 @Autonomous
-public class RedClose extends LinearOpMode {
-    CloseRed closeRed;
-    public void runOpMode() throws InterruptedException{
-        closeRed = new CloseRed(hardwareMap);
+public class BlueFar extends LinearOpMode {
+    FarBlue farBlue;
+    public void runOpMode(){
+        farBlue = new FarBlue(hardwareMap);
         waitForStart();
         while(opModeIsActive()){
-            closeRed.update();
+            farBlue.update();
         }
+
     }
 }

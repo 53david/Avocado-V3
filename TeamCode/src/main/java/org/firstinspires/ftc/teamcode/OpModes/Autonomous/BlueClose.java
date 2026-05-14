@@ -10,6 +10,7 @@ public class BlueClose extends LinearOpMode {
     CloseBlue closeBlue;
     public void runOpMode() throws InterruptedException{
         closeBlue = new CloseBlue(hardwareMap);
+        waitForStart();
         while(opModeIsActive()){
             closeBlue.update();
         }
