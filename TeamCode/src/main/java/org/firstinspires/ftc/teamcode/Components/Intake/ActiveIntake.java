@@ -42,11 +42,6 @@ public class ActiveIntake {
         stateUpdate();
         intakeMotor1.setPower(power);
         intakeMotor2.setPower(power);
-        if (gm1.left_bumper && !isAutonomousActive){
-            state = State.REVERSE;
-        }
-        if (gm1.right_bumper && !isAutonomousActive){
-            state = State.ACTIVE;
-        }
+
     }
 }
