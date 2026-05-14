@@ -122,6 +122,9 @@ public class Chassis{
     }
 
     public void update() {
+        controllerX.setPID(kp,0,kd);
+        controllerY.setPID(kp,0,kd);
+        controllerHeading.setPID(KD,0,KD);
         if (state == State.DRIVE && Turret.allienceState == Turret.AllianceState.BLUE) {
 
             double X = gm1.left_stick_x;

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Wrappers.Node;
 import org.firstinspires.ftc.teamcode.Wrappers.Odo;
 import org.firstinspires.ftc.teamcode.Wrappers.Pose2D;
 
-public class CloseBlue {
+public class CloseRed {
     boolean ok = true;
     ElapsedTime timer = new ElapsedTime();
     Odo odo;
@@ -34,9 +34,9 @@ public class CloseBlue {
     };
     Node shoot,gate,loading,spike1,park,spike2;
     public Node currentNode;
-    public CloseBlue(HardwareMap hardwareMap){
+    public CloseRed(HardwareMap hardwareMap){
         Initializer.start(hardwareMap);
-        Turret.allienceState = Turret.AllianceState.BLUE;
+        Turret.allienceState = Turret.AllianceState.RED;
         chassis = new Chassis(Chassis.State.PID);
         intake = new Intake();
         shooter = new Shooter();
