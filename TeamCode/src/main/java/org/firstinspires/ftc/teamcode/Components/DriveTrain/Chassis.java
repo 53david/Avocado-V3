@@ -165,10 +165,5 @@ public class Chassis{
 
         }
     }
-    public void tunePid(){
-        controllerX.setPID(kp,0,kd);
-        controllerY.setPID(kp,0,kd);
-        controllerHeading.setPID(KP,0,KD);
-    }
 
 }

@@ -18,6 +18,7 @@ import java.lang.Math;
 
 @Configurable
 public class Odo {
+    public double offsetY = 0, offsetX = 0;
     public enum State{
         CLOSE,
         FAR,
@@ -28,7 +29,7 @@ public class Odo {
     public Odo(){
         pp.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED , org.firstinspires.ftc.teamcode.Wrappers.GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pp.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pp.setOffsets(129.503 , -78.001, DistanceUnit.MM);
+        pp.setOffsets(offsetX , offsetY, DistanceUnit.MM);
         pp.resetPosAndIMU();
     }
 
@@ -83,11 +84,9 @@ public class Odo {
         switch (state){
             case FAR :
                 power = -0.74;
-                ShooterCalculator.fwOffset = 60;
                 break;
             case CLOSE:
                 power = -1;
-                ShooterCalculator.fwOffset = 80;
                 break;
         }
         if (distance()>2200){

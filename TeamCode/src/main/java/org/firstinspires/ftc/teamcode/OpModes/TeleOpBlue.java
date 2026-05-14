@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Components.DriveTrain.Chassis;
 import org.firstinspires.ftc.teamcode.Components.Intake.Intake;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Shooter;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Turret;
+import org.firstinspires.ftc.teamcode.Wrappers.Initializer;
 import org.firstinspires.ftc.teamcode.Wrappers.Odo;
 
 @TeleOp
@@ -19,6 +20,7 @@ public class TeleOpBlue extends LinearOpMode {
     Shooter shooter;
     Odo odo;
     public void runOpMode(){
+        Initializer.isAutonomousActive = false;
         chassis = new Chassis(Chassis.State.DRIVE);
         intake = new Intake();
         shooter = new Shooter();

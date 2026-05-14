@@ -8,6 +8,8 @@ import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.isAutonomousAc
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
+import org.firstinspires.ftc.teamcode.Wrappers.Odo;
+
 public class ActiveIntake {
     public enum State{
         IDLE,
@@ -31,10 +33,10 @@ public class ActiveIntake {
                 power = 0;
                 break;
             case ACTIVE:
-                power = 1;
+                power = Odo.power;
                 break;
             case REVERSE:
-                power = -1;
+                power = -Odo.power;
                 break;
         }
     }

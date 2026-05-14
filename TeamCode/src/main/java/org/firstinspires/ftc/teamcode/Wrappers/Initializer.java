@@ -32,6 +32,7 @@ public class Initializer {
     public static DcMotorEx backRight;
     public static DcMotorEx shoot1;
     public static DcMotorEx shoot2;
+    public static DcMotorEx turretMotor;
     public static ServoImplEx servo1;
     public static ServoImplEx servo2;
     public static ServoImplEx transfer;
@@ -62,6 +63,7 @@ public class Initializer {
         servo1 = hwMap.get(ServoImplEx.class,"servo1");
         servo2 = hwMap.get(ServoImplEx.class,"servo2");
         hood = hwMap.get(ServoImplEx.class,"hood");
+        turretMotor = hwMap.get(DcMotorEx.class,"turretMotor");
 
 
     }
