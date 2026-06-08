@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.Wrappers.Odo;
 public class MotorTurret {
     public double targetAngle = 0;
     public double angleOffset = 450;
+    public double maxAngle = Math.PI *2;
     public static double Kp =0;
     public static double Kd =0;
     public static double Ks = 0;
@@ -30,17 +31,26 @@ public class MotorTurret {
         double dx = goalPositionX - Odo.getX();
         double dy = goalPositionY - Odo.getY();
         targetAngle = Math.atan2((dy),(dx));
+        targetAngle = normalizeRadians(targetAngle);
         targetAngle = targetAngle - Odo.getHeading();
-        targetAngle/= Math.toRadians(355);
     }
     public void update(){
+        pid.setPID(Kp,0,Kd);
         updateAngle();
-        turretMotor.setPower(pid.calculate(fromEncoderToRads(),targetAngle) - Ks * Math.signum(targetAngle-fromEncoderToRads()));
+        turretMotor.setPower(pid.calculate(fromEncoderToRads(),targetAngle) + Ks *Math.signum(targetAngle-fromEncoderToRads()));
     }
     private double fromEncoderToRads() {
         double ticks = turretMotor.getCurrentPosition() + angleOffset;
         double ticksPerRev = 384.5 * (130.0 / 34.0);
-        return ticks * 2.0 * Math.PI / ticksPerRev;
+        double angle = ticks * 2.0 * Math.PI / ticksPerRev;
+        return normalizeRadians(angle);
+    }
+
+    public double normalizeRadians(double angle){
+        angle %= (2.0 * Math.PI);
+        if (angle < 0) angle += (2.0 * Math.PI);
+        return angle;
+
     }
 
 }
