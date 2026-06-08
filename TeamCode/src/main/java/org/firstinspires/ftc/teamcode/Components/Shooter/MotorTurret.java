@@ -9,12 +9,11 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Wrappers.Odo;
-
+//pretty much just useless
 @Configurable
 public class MotorTurret {
     public double targetAngle = 0;
     public double angleOffset = 450;
-    public double maxAngle = Math.PI *2;
     public static double Kp =0;
     public static double Kd =0;
     public static double Ks = 0;
@@ -52,5 +51,4 @@ public class MotorTurret {
         return angle;
 
     }
-
 }
