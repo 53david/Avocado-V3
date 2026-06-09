@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.allHubs;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.gm1;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
 
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -30,6 +32,9 @@ public class TeleOpBlue extends LinearOpMode {
         Turret.allienceState = Turret.AllianceState.BLUE;
         waitForStart();
         while (opModeIsActive()){
+            for (LynxModule hub : allHubs) {
+                hub.clearBulkCache();
+            }
             gm1.copy(gamepad1);
             chassis.update();
             shooter.update();
@@ -37,15 +42,7 @@ public class TeleOpBlue extends LinearOpMode {
             if (gm1.psWasPressed()){
                 odo.reset();
             }
-            if (gm1.right_bumper){
-                intake.state = Intake.State.ACTIVE;
-            }
-            else if (gm1.left_bumper){
-                intake.state = Intake.State.ACTIVE;
-            }
-            else {
-                intake.state = Intake.State.IDLE;
-            }
+
             if (gm1.cross !=prevgm1.cross){
                 intake.state = Intake.State.SHOOT;
             }

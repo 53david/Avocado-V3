@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Components.Intake;
 
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.gm1;
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.isAutonomousActive;
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Intake {
@@ -39,7 +43,7 @@ public class Intake {
             case SHOOT:
                 activeIntake.state = ActiveIntake.State.ACTIVE;
                 transfer.state = Transfer.State.ACTIVE;
-                if (timer.seconds()>0.8){
+                if (timer.seconds()>0.5){
                     state = State.RESET;
                     timer.reset();
                 }
@@ -56,5 +60,17 @@ public class Intake {
         stateUpdate();
         activeIntake.update();
         transfer.update();
+        if (!isAutonomousActive) {
+            if (gm1.right_bumper) {
+                state = Intake.State.ACTIVE;
+            } else if (gm1.left_bumper) {
+                state = Intake.State.ACTIVE;
+            } else {
+                state = Intake.State.IDLE;
+            }
+            if (gm1.cross !=prevgm1.cross){
+                state = Intake.State.SHOOT;
+            }
+        }
     }
 }
