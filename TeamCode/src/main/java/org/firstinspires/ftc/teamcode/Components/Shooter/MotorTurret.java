@@ -9,7 +9,7 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Wrappers.Odo;
-//pretty much just useless
+///Pretty much just useless with the new bot
 @Configurable
 public class MotorTurret {
     public double targetAngle = 0;

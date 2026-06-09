@@ -60,6 +60,7 @@ public class Intake {
         stateUpdate();
         activeIntake.update();
         transfer.update();
+
         if (!isAutonomousActive) {
             if (gm1.right_bumper) {
                 state = Intake.State.ACTIVE;
