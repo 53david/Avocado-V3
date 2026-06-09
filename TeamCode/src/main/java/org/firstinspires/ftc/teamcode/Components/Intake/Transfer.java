@@ -8,7 +8,7 @@ public class Transfer {
         ACTIVE,
     };
     double currentPos = 0, transferPos = 0.33, idlePos = 0.15;
-    public State state = State.IDLE;
+    public static State state = State.IDLE;
     public Transfer(){
         transfer.setPosition(idlePos);
     }

@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Intake {
     ElapsedTime timer = new ElapsedTime();
+
+    ActiveIntake activeIntake;
+    Transfer transfer;
     public enum State{
         IDLE,
         REVERSE,
@@ -15,8 +18,6 @@ public class Intake {
         SHOOT,
         RESET,
     }
-    ActiveIntake activeIntake;
-    Transfer transfer;
     public State state = State.IDLE;
     public Intake(){
         activeIntake = new ActiveIntake();
@@ -26,31 +27,31 @@ public class Intake {
     public void stateUpdate(){
         switch (state){
             case IDLE:
-                activeIntake.state = ActiveIntake.State.IDLE;
-                transfer.state = Transfer.State.IDLE;
+                ActiveIntake.state = ActiveIntake.State.IDLE;
+                Transfer.state = Transfer.State.IDLE;
                 timer.reset();
                 break;
             case ACTIVE:
-                activeIntake.state = ActiveIntake.State.ACTIVE;
-                transfer.state = Transfer.State.IDLE;
+                ActiveIntake.state = ActiveIntake.State.ACTIVE;
+                Transfer.state = Transfer.State.IDLE;
                 timer.reset();
                 break;
             case REVERSE:
-                activeIntake.state = ActiveIntake.State.REVERSE;
-                transfer.state = Transfer.State.IDLE;
+                ActiveIntake.state = ActiveIntake.State.REVERSE;
+                Transfer.state = Transfer.State.IDLE;
                 timer.reset();
                 break;
             case SHOOT:
-                activeIntake.state = ActiveIntake.State.ACTIVE;
-                transfer.state = Transfer.State.ACTIVE;
+                ActiveIntake.state = ActiveIntake.State.ACTIVE;
+                Transfer.state = Transfer.State.ACTIVE;
                 if (timer.seconds()>0.5){
                     state = State.RESET;
                     timer.reset();
                 }
                 break;
             case RESET:
-                activeIntake.state = ActiveIntake.State.IDLE;
-                transfer.state = Transfer.State.IDLE;
+                ActiveIntake.state = ActiveIntake.State.IDLE;
+                Transfer.state = Transfer.State.IDLE;
                 timer.reset();
                 state = State.IDLE;
                 break;

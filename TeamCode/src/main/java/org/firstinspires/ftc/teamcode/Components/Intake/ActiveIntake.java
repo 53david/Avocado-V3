@@ -17,7 +17,7 @@ public class ActiveIntake {
         REVERSE,
     };
     public double power = 0;
-    public State state = State.IDLE;
+    public static State state = State.IDLE;
     public ActiveIntake(){
         intakeMotor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intakeMotor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

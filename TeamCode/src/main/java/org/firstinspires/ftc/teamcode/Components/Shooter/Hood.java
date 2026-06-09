@@ -10,7 +10,7 @@ public class Hood {
         IDLE,
         SHOOT,
     }
-    State state = State.IDLE;
+    public static State state = State.IDLE;
     public double pos = 0.1;
     public Hood(){
         hood.setPosition(pos);

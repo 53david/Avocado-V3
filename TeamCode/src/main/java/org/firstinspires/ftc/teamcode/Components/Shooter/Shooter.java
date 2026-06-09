@@ -20,16 +20,16 @@ public class Shooter {
     public void stateUpdate(){
         switch (state){
             case IDLE:
-                flyWheel.state = FlyWheel.State.IDLE;
-                hood.state = Hood.State.IDLE;
+                FlyWheel.state = FlyWheel.State.IDLE;
+                Hood.state = Hood.State.IDLE;
                 break;
             case ACTIVE:
-                flyWheel.state = FlyWheel.State.ACTIVE;
-                hood.state = Hood.State.IDLE;
+                FlyWheel.state = FlyWheel.State.ACTIVE;
+                Hood.state = Hood.State.IDLE;
                 break;
             case SHOOT:
-                flyWheel.state = FlyWheel.State.ACTIVE;
-                hood.state = Hood.State.SHOOT;
+                FlyWheel.state = FlyWheel.State.ACTIVE;
+                Hood.state = Hood.State.SHOOT;
                 break;
 
         }
