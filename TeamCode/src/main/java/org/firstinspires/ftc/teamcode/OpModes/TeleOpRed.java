@@ -6,7 +6,7 @@ import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Components.DriveTrain.Chassis;
+import org.firstinspires.ftc.teamcode.Components.Chassis.Chassis;
 import org.firstinspires.ftc.teamcode.Components.Intake.Intake;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Shooter;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Turret;
@@ -20,6 +20,7 @@ public class TeleOpRed extends LinearOpMode {
     Shooter shooter;
     Odo odo;
     public void runOpMode(){
+        Initializer.start(hardwareMap);
         Initializer.isAutonomousActive = false;
         chassis = new Chassis(Chassis.State.DRIVE);
         intake = new Intake();

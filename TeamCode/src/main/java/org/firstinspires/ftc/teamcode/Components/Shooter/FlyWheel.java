@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Components.Shooter;
 import static org.firstinspires.ftc.teamcode.Math.ShooterCalculator.Ka;
 import static org.firstinspires.ftc.teamcode.Math.ShooterCalculator.Kp;
 import static org.firstinspires.ftc.teamcode.Math.ShooterCalculator.Ks;
+import static org.firstinspires.ftc.teamcode.Math.ShooterCalculator.Kv;
+import static org.firstinspires.ftc.teamcode.Math.ShooterCalculator.velocity;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.Voltage;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.shoot1;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.shoot2;
@@ -21,7 +23,7 @@ public class FlyWheel {
     }
     public PIDController pid = new PIDController(Kp,0,0);
     public double rpm = 0, vel = 0;
-    public State state = State.ACTIVE;
+    public static State state = State.ACTIVE;
     public FlyWheel(){
         shoot1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         shoot2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -42,7 +44,7 @@ public class FlyWheel {
         }
     }
     public void velocityUpdate(){
-        rpm = pid.calculate() + Ks + Ka * (vel-shoot1.getVelocity());
+        rpm = pid.calculate() + Ks +Kv *vel +Ka * (vel-shoot1.getVelocity());
         rpm *= Voltage;
         shoot1.setPower(rpm);
         shoot2.setPower(rpm);
@@ -53,5 +55,9 @@ public class FlyWheel {
     }
     public static double getVelocity(){
         return shoot1.getVelocity();
+    }
+    public void tune(){
+        velocityUpdate();
+        vel = velocity;
     }
 }

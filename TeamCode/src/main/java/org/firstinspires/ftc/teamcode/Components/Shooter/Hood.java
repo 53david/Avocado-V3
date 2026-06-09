@@ -29,4 +29,7 @@ public class Hood {
         stateUpdate();
         hood.setPosition(pos);
     }
+    public void tune(){
+        hood.setPosition(pos);
+    }
 }
