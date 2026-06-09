@@ -34,9 +34,6 @@ public class TeleOpRed extends LinearOpMode {
             chassis.update();
             shooter.update();
             intake.update();
-            if (gm1.psWasPressed()){
-                odo.reset();
-            }
             prevgm1.copy(gm1);
         }
     }

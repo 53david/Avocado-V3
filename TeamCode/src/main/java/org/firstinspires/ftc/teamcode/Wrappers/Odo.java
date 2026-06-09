@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.Wrappers;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.RADIANS;
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.normalizeRadians;
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.gm1;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.pp;
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
 
 import com.bylazar.configurables.annotations.Configurable;
 
@@ -93,7 +95,6 @@ public class Odo {
     }
     public void update() {
         pp.update();
-
         heading=pp.getHeading(RADIANS);
         x=pp.getPosX(DistanceUnit.MM);
         y=pp.getPosY(DistanceUnit.MM);
@@ -103,5 +104,8 @@ public class Odo {
         stateUpdate();
         predictedX = x + xGlide;
         predictedY = y + yGlide;
+        if (gm1.ps && prevgm1.ps!= gm1.ps){
+            reset();
+        }
     }
 }

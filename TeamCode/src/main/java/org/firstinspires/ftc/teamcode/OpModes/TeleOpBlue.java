@@ -39,13 +39,6 @@ public class TeleOpBlue extends LinearOpMode {
             chassis.update();
             shooter.update();
             intake.update();
-            if (gm1.psWasPressed()){
-                odo.reset();
-            }
-
-            if (gm1.cross !=prevgm1.cross){
-                intake.state = Intake.State.SHOOT;
-            }
             prevgm1.copy(gm1);
         }
     }
