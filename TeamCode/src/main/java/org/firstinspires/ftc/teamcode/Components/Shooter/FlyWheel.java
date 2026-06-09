@@ -44,7 +44,7 @@ public class FlyWheel {
         }
     }
     public void velocityUpdate(){
-        rpm = pid.calculate() + Ks +Kv * vel + Ka * (vel-shoot1.getVelocity());
+        rpm = pid.calculate() + Ks + Kv * vel + Ka * (vel-shoot1.getVelocity());
         rpm *= Voltage;
         shoot1.setPower(rpm);
         shoot2.setPower(rpm);
