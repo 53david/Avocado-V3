@@ -7,10 +7,10 @@ import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class Intake {
-    ElapsedTime timer = new ElapsedTime();
+    public ElapsedTime timer = new ElapsedTime();
 
-    ActiveIntake activeIntake;
-    Transfer transfer;
+    public ActiveIntake activeIntake;
+    public Transfer transfer;
     public enum State{
         IDLE,
         REVERSE,
@@ -18,7 +18,7 @@ public class Intake {
         SHOOT,
         RESET,
     }
-    public State state = State.IDLE;
+    public static State state = State.IDLE;
     public Intake(){
         activeIntake = new ActiveIntake();
         transfer = new Transfer();

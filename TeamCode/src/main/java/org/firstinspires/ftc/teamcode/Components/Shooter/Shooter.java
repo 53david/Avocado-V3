@@ -1,23 +1,23 @@
 package org.firstinspires.ftc.teamcode.Components.Shooter;
 
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.gm1;
+import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.isAutonomousActive;
 import static org.firstinspires.ftc.teamcode.Wrappers.Initializer.prevgm1;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Math.ShooterCalculator;
 
 public class Shooter {
-    ElapsedTime timer;
+    public ElapsedTime timer;
     public enum State{
         IDLE,
         ACTIVE,
         SHOOT,
     };
-    FlyWheel flyWheel;
-    Turret turret;
-    Hood hood;
-    public State state = State.ACTIVE;
+    public FlyWheel flyWheel;
+    public Turret turret;
+    public Hood hood;
+    public static State state = State.ACTIVE;
     public Shooter(){
         hood = new Hood();
         flyWheel = new FlyWheel();
@@ -53,9 +53,10 @@ public class Shooter {
         flyWheel.update();
         turret.update();
         hood.update();
-        if (gm1.cross && prevgm1.cross!= gm1.cross){
-            state = State.SHOOT;
-        }
+            if (!isAutonomousActive && gm1.cross && prevgm1.cross != gm1.cross) {
+                state = State.SHOOT;
+            }
+
     }
 
 }

@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Trajectories.CloseBlue;
-
 @Autonomous
 public class BlueClose extends LinearOpMode {
     CloseBlue closeBlue;
@@ -14,7 +13,5 @@ public class BlueClose extends LinearOpMode {
         while(opModeIsActive()){
             closeBlue.update();
         }
-        waitForStart();
-
     }
 }
