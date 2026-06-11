@@ -17,6 +17,7 @@ public class MotorTurret {
     public static double Kp =0;
     public static double Kd =0;
     public static double Ks = 0;
+    public double ratio = 1;
     PIDController pid = new PIDController(Kp,0,Kd);
     public MotorTurret(){
         turretMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -40,7 +41,7 @@ public class MotorTurret {
     }
     private double fromEncoderToRads() {
         double ticks = turretMotor.getCurrentPosition() + angleOffset;
-        double ticksPerRev = 384.5 * (130.0 / 34.0);
+        double ticksPerRev = 384.5 * (ratio);
         double angle = ticks * 2.0 * Math.PI / ticksPerRev;
         return normalizeRadians(angle);
     }
