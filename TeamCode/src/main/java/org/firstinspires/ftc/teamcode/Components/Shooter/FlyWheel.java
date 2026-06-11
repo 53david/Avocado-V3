@@ -22,7 +22,7 @@ public class FlyWheel {
         ACTIVE,
     }
     public PIDController pid = new PIDController(Kp,0,0);
-    public double rpm = 0, vel = 0;
+    public static double rpm = 0, vel = 0;
     public static State state = State.ACTIVE;
     public FlyWheel(){
         shoot1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -59,5 +59,8 @@ public class FlyWheel {
     public void tune(){
         velocityUpdate();
         vel = velocity;
+    }
+    public static boolean isReady(){
+        return (vel-shoot1.getVelocity())<100;
     }
 }

@@ -1,124 +1,120 @@
 package org.firstinspires.ftc.teamcode.Trajectories;
 
-
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.Chassis.Chassis;
 import org.firstinspires.ftc.teamcode.Components.Intake.Intake;
+import org.firstinspires.ftc.teamcode.Components.Shooter.FlyWheel;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Shooter;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Turret;
 import org.firstinspires.ftc.teamcode.Wrappers.Initializer;
 import org.firstinspires.ftc.teamcode.Wrappers.Node;
+import org.firstinspires.ftc.teamcode.Wrappers.Odo;
 import org.firstinspires.ftc.teamcode.Wrappers.Pose2D;
 
 public class FarRed {
-    public boolean ok = true;
-    Chassis chassis;
-    Intake intake;
-    Shooter shooter;
-
-    public static Pose2D shootPos = new Pose2D(0,0,0);
-    public static Pose2D loadingPos = new Pose2D(0,0,0);
-    public static Pose2D[] tunnelPos = {
-            new Pose2D(0,0,0),
-            new Pose2D(0,0,0),
-    };
-    public static Pose2D[] spike3Pos = {
-            new Pose2D(0,0,0),
-            new Pose2D(0,0,0),
-            new Pose2D(0,0,0),
-    };
-    public static Pose2D parkPos = new Pose2D(0,0,0);
-    Node shoot,loading,spike3,park,tunnel;
+    public ElapsedTime timer;
+    public Chassis chassis;
+    public Intake intake;
+    public Shooter shooter;
+    public Odo odo;
+    public Pose2D shootPos = new Pose2D(0,0,0);
+    public Pose2D parkPos = new Pose2D(0,0,0);
+    public Pose2D secretTunnelPos = new Pose2D(0,0,0);
+    public Pose2D loadingZonePos = new Pose2D(0,0,0);
+    public Pose2D spike3Pos = new Pose2D(0,0,0);
     public Node currentNode;
+    Node shoot,loadingZone,secretTunnel,spike3,park;
     public FarRed(HardwareMap hardwareMap){
         Initializer.start(hardwareMap);
-        Turret.allienceState = Turret.AllianceState.RED;
         chassis = new Chassis(Chassis.State.PID);
         intake = new Intake();
         shooter = new Shooter();
-        shoot = new Node("shoot");
-        loading = new Node("loading");
+        odo =new Odo();
+        timer = new ElapsedTime();
+        Turret.allienceState = Turret.AllianceState.BLUE;
+        Shooter.state = Shooter.State.ACTIVE;
+        Intake.state = Intake.State.IDLE;
+        shoot =new Node("shoot");
+        loadingZone = new Node("loadingZone");
+        secretTunnel = new Node("secretTunnel");
         spike3 = new Node("spike3");
         park = new Node("park");
-        tunnel = new Node("tunnel");
         currentNode = shoot;
         shoot.addConditions(
                 ()->{
-                    chassis.setTargetPosition(shootPos);
-                    shooter.state = Shooter.State.SHOOT;
-                    if (chassis.inPosition(100,100,0.2) && ok && intake.state == Intake.State.ACTIVE){
-                        intake.state = Intake.State.SHOOT;
-                        ok = false;
+                    if (chassis.inPosition(40,40,0.1) && FlyWheel.isReady()){
+                        Intake.state = Intake.State.SHOOT;
+                        Shooter.state = Shooter.State.SHOOT;
                     }
-                    else if (intake.state != Intake.State.ACTIVE){
-                        intake.state = Intake.State.ACTIVE;
+                    else if (!chassis.inPosition(40,40,0.1)){
+                        Intake.state = Intake.State.IDLE;
+                        Shooter.state = Shooter.State.ACTIVE;
                     }
                     chassis.setTargetPosition(shootPos);
                 },
                 ()->{
-                    if (intake.state == Intake.State.RESET){
-                        ok = true; tunnel.reset();
-                        return true;
-                    }
                     return false;
                 },
-                new Node[]{spike3,loading,tunnel,loading,loading,tunnel,park}
+                new Node[]{loadingZone,spike3,secretTunnel,loadingZone,loadingZone,secretTunnel,loadingZone,secretTunnel}
         );
-        loading.addConditions(
+        loadingZone.addConditions(
                 ()->{
-                    chassis.setTargetPosition(loadingPos);
-                    intake.state = Intake.State.ACTIVE;
-                    shooter.state = Shooter.State.IDLE;
+                    chassis.setTargetPosition(loadingZonePos);
+                    Shooter.state = Shooter.State.IDLE;
+                    Intake.state = Intake.State.ACTIVE;
                 },
                 ()->{
-                    return chassis.inPosition(40, 40, 0.1);
+                    return chassis.inPosition(40,40,0.13);
                 },
                 new Node[]{shoot}
         );
-        tunnel.addConditions(
+        secretTunnel.addConditions(
                 ()->{
-                    chassis.setTargetPosition(tunnelPos[Math.min(tunnel.index, tunnelPos.length-1)]);
-                    intake.state = Intake.State.ACTIVE;
-                    shooter.state = Shooter.State.IDLE;
+                    chassis.setTargetPosition(secretTunnelPos);
+                    Shooter.state = Shooter.State.IDLE;
+                    Intake.state = Intake.State.ACTIVE;
                 },
                 ()->{
-                    return chassis.inPosition(50,50,0.12);
+                    return chassis.inPosition(40,40,0.13);
                 },
-                new Node[]{tunnel,shoot}
+                new Node[]{shoot}
         );
         spike3.addConditions(
                 ()->{
-                    chassis.setTargetPosition(spike3Pos[Math.min(spike3.index, spike3Pos.length-1)]);
-                    shooter.state = Shooter.State.IDLE;
-                    intake.state = Intake.State.ACTIVE;
+                    chassis.setTargetPosition(spike3Pos);
+                    Shooter.state = Shooter.State.IDLE;
+                    Intake.state = Intake.State.ACTIVE;
                 },
                 ()->{
-                    return chassis.inPosition(40,40,0.1);
+                    return chassis.inPosition(40,40,0.13);
                 },
-                new Node[]{spike3,spike3,shoot}
+                new Node[]{shoot}
         );
         park.addConditions(
                 ()->{
                     chassis.setTargetPosition(parkPos);
-                    intake.state = Intake.State.IDLE;
-                    shooter.state = Shooter.State.IDLE;
+                    Shooter.state = Shooter.State.IDLE;
+                    Intake.state = Intake.State.REVERSE;
                 },
                 ()->{
-                    return chassis.inPosition(40,40,0.1);
+                    return chassis.inPosition(40,40,0.13);
                 },
                 new Node[]{park}
         );
-
     }
     public void update(){
         currentNode.run();
+        odo.update();
         chassis.update();
         intake.update();
         shooter.update();
         if (currentNode.transition()){
-            currentNode = currentNode.next[Math.min(currentNode.index++, currentNode.next.length-1)];
+            currentNode = currentNode.next[Math.min(currentNode.index++,currentNode.next.length-1)];
+        }
+        if (timer.seconds()>29.25){
+            currentNode = park;
         }
     }
 }

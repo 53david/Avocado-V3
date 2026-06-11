@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Trajectories.FarBlue;
 @Autonomous
 public class BlueFar extends LinearOpMode {
     FarBlue farBlue;
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException{
         farBlue = new FarBlue(hardwareMap);
         waitForStart();
         while(opModeIsActive()){

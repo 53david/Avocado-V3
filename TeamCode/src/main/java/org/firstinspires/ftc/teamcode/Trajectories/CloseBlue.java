@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Components.Chassis.Chassis;
 import org.firstinspires.ftc.teamcode.Components.Intake.Intake;
+import org.firstinspires.ftc.teamcode.Components.Shooter.FlyWheel;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Shooter;
 import org.firstinspires.ftc.teamcode.Components.Shooter.Turret;
 import org.firstinspires.ftc.teamcode.Wrappers.Initializer;
@@ -43,6 +44,8 @@ public class CloseBlue {
         odo = new Odo();
         timer = new ElapsedTime();
         Turret.allienceState = Turret.AllianceState.BLUE;
+        Shooter.state = Shooter.State.ACTIVE;
+        Intake.state = Intake.State.IDLE;
         shoot = new Node("shoot");
         gate = new Node("gate");
         spike1 = new Node("spike1");
@@ -53,7 +56,7 @@ public class CloseBlue {
                         Shooter.state = Shooter.State.ACTIVE;
                         Intake.state = Intake.State.IDLE;
                     }
-                    else if (chassis.inPosition(100,100,0.4)){
+                    else if (chassis.inPosition(100,100,0.4) && FlyWheel.isReady()){
                         Shooter.state = Shooter.State.SHOOT;
                         Intake.state = Intake.State.SHOOT;
                     }
